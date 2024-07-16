@@ -1,7 +1,8 @@
 export interface User {
-  id: number;
+  userId: number;
   userName: string;
   firstName: string;
   lastName: string;
-  group: string;
+  userGroups: { groupId: number, groupName: string, permissions: string[] }[];
+  permissions: string[];
 }

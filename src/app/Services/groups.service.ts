@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../Models/UserModel'
 import { Group } from '../Models/GroupModel';
+import { AddGroup } from '../Models/AddGroup';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +14,15 @@ export class GroupsService {
   constructor(private http: HttpClient) { }
 
   getGroups(): Observable<Group[]> {
-    return this.http.get<Group[]>(this.apiUrl);
+    return this.http.get<Group[]>(`${this.apiUrl}/GetGroups`);
   }
 
   getGroupById(id: number): Observable<Group> {
     return this.http.get<Group>(`${this.apiUrl}/${id}`);
   }
 
-  createGroup(user: Group): Observable<Group> {
-    return this.http.post<Group>(this.apiUrl, user);
+  createGroup(group: AddGroup): Observable<Group> {
+    return this.http.post<Group>(`${this.apiUrl}/CreateGroup`, group);
   }
 
   // updateUser(user: Group): Observable<void> {

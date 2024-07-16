@@ -1,5 +1,5 @@
 export interface Group {
-    id: number;
+    groupId: number;
     groupName: string;
     groupDescription: string;
     permissions: Array<string>;

@@ -10,7 +10,7 @@ import { User } from '../Models/UserModel'
 
 })
 export class UserDeleteComponent implements OnInit {
-  user: User = { id: 0, userName: '', firstName: '', lastName: '', group: '' };
+  user: User = { userId: 0, userName: '', firstName: '', lastName: '', userGroups: [], permissions: [] };
 
   constructor(
     private route: ActivatedRoute,
@@ -23,19 +23,31 @@ export class UserDeleteComponent implements OnInit {
     const id = idParam ? +idParam : 0;
     this.userService.getUser(id).subscribe(data => {
       this.user = data;
+      console.log('Received: ', this.user)
     });
   }
 
   cancel(): void {
-   
-      this.router.navigate(['/users']);
-  
+
+    this.router.navigate(['/users']);
+
   }
 
 
-  deleteUser(): void {
-    this.userService.deleteUser(this.user.id).subscribe(() => {
+  async deleteUser(): Promise<void> {
+    try {
+      const response: any = await this.userService.deleteUser(this.user.userId).toPromise();
+      // if (response.status === 200) {
+      //   alert("Deleted User");
+      // } else {
+      //   alert("Something went wrong");
+      // }
       this.router.navigate(['/users']);
-    });
+    } catch (error) {
+      console.error(error);
+      // alert("Something went wrong");
+      this.router.navigate(['/users']);
+    }
   }
+
 }

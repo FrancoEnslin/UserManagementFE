@@ -3,7 +3,10 @@
 <div class="confirmation-message">
     <p>Are you sure you want to delete this user?</p>
     <p>Username: <strong>{{ user.userName }}</strong></p>
-    <p>Group: <strong>{{ user.group }}</strong></p>
+    <!-- <p>Groups:</p>
+    <div  *ngFor="let group of user.userGroups">{{ group.groupName }}
+       
+    </div> -->
 </div>
 
 <div class="button-group">

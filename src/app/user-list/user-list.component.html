@@ -7,22 +7,32 @@
             <th>Username</th>
             <th>Firstname</th>
             <th>Lastname</th>
-            <th>Group</th>
+            <th>Groups</th>
+            <th>Permissions</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngIf="users.length === 0" class="no-users-row">
-            <td colspan="5">No users</td>
+            <td colspan="6">No users</td>
         </tr>
         <tr *ngFor="let user of users" class="user-row">
             <td>{{ user.userName }}</td>
             <td>{{ user.firstName }}</td>
             <td>{{ user.lastName }}</td>
-            <td>{{ user.group }}</td>
             <td>
-                <a [routerLink]="['/users/edit', user.id]" class="action-link">Edit</a> |
-                <a [routerLink]="['/users/delete', user.id]" class="action-link">Delete</a>
+                <p *ngFor="let group of user.userGroups">{{ group.groupName }}</p>
+            </td>
+            <td>
+                <div *ngFor="let group of user.userGroups">
+                    <p *ngFor="let permission of group.permissions">{{ permission }}</p>
+                </div>
+            </td>
+            <td>
+                <a [routerLink]="['/users/edit', user.userId]" class="action-link">Edit Details</a> |
+                <a [routerLink]="['/users/delete', user.userId]" class="action-link">Delete</a>
+                <a *ngIf="isAdminUser(user)" [routerLink]="['/users/admin-actions',]"
+                    class="action-link">| Admin Actions</a>
             </td>
         </tr>
     </tbody>

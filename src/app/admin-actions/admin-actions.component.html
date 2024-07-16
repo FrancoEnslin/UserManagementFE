@@ -1,0 +1,19 @@
+<h2>Admin Actions</h2>
+
+<div class="section">
+    <h3>User Count</h3>
+    <p>Total Users: {{ totalUsers }}</p>
+</div>
+<br />
+<br />
+<div class="section">
+    <h3>User Count by Group</h3>
+    <label for="groupSelect">Select Group:</label>
+    <select id="groupSelect" [(ngModel)]="selectedGroupId" (change)="onGroupSelectChange()">
+        <option *ngFor="let group of groups" [value]="group.groupId">{{ group.groupName }}</option>
+    </select>
+    <p *ngIf=" userCountByGroup > 0">Total Users in this group: {{userCountByGroup}}</p>
+    <p *ngIf="!userCountByGroup || userCountByGroup === 0">No user counts available.</p>
+</div>
+
+<button routerLink="/users" class="back-button">Back</button>

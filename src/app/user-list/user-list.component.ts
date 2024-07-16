@@ -12,20 +12,18 @@ export class UserListComponent implements OnInit {
 
   constructor(private userService: UserService) { }
 
-  ngOnInit(): void {
-    this.userService.getUsers().subscribe(data => {
-      this.users = data;
-    }, error => {
+  async ngOnInit(): Promise<void> {
+    try {
+      this.users = await this.userService.getUsers().toPromise();
+      console.log('Users received: ', this.users);
+    } catch (error) {
       console.error('Error fetching users', error);
-      this.users = [
-        //   {
-        //   id: 1,
-        //   userName: "Franco",
-        //   firstName: "Enslin",
-        //   lastName: "YPYO",
-        //   group: "Admin",
-        // },
-      ];
-    });
+      this.users = [];
+    }
+  }
+
+  isAdminUser(user: User): boolean {
+    // Check if user has 'Admin' permission
+    return user.userGroups.some(group => group.permissions.includes('Admin'));
   }
 }
