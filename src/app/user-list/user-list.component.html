@@ -1,0 +1,29 @@
+<h1>Users</h1>
+<button routerLink="/users/create" class="add-user-button">Add User</button>
+
+<table class="user-table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Group</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngIf="users.length === 0" class="no-users-row">
+            <td colspan="5">No users</td>
+        </tr>
+        <tr *ngFor="let user of users" class="user-row">
+            <td>{{ user.userName }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.group }}</td>
+            <td>
+                <a [routerLink]="['/users/edit', user.id]" class="action-link">Edit</a> |
+                <a [routerLink]="['/users/delete', user.id]" class="action-link">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
